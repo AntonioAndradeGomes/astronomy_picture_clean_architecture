@@ -15,7 +15,7 @@ class ApodModel extends Apod {
 
   factory ApodModel.fromJson(Map<String, dynamic> json) => ApodModel(
         copyright: json['copyright'] ?? "Nasa APOD",
-        date: json['date'] ?? DateTime.parse(json['date']),
+        date: json['date'] != null ? DateTime.parse(json['date']) : null,
         explanation: json['explanation'],
         hdurl: json['hdurl'],
         mediaType: json['media_type'],
