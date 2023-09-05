@@ -1,5 +1,6 @@
 import 'package:astronomy_picture/dependency_injection.dart';
 import 'package:astronomy_picture/presentation/bloc/today_apod/today_apod_bloc.dart';
+import 'package:astronomy_picture/presentation/pages/today_apod/apod_view_page.dart';
 import 'package:flutter/material.dart';
 
 class ApodTodayPage extends StatefulWidget {
@@ -40,11 +41,8 @@ class _ApodTodayPageState extends State<ApodTodayPage> {
         }
         if (state is SuccessTodayApodState) {
           final apod = state.apod;
-          body = Column(
-            children: [
-              Text(apod.title ?? ''),
-              Text(apod.explanation ?? ''),
-            ],
+          return ApodViewPage(
+            apod: apod,
           );
         }
         return Scaffold(
