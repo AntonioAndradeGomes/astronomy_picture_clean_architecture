@@ -57,6 +57,72 @@ class ApodViewPage extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(
+                      30,
+                      350,
+                      30,
+                      0,
+                    ),
+                    child: Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.centerLeft,
+                          colors: [
+                            CustomColors.blue,
+                            CustomColors.vermilion,
+                            CustomColors.vermilion,
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(
+                          color: CustomColors.white.withOpacity(0.3),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: CustomColors.blue.withOpacity(0.7),
+                            blurRadius: 10,
+                            spreadRadius: 1,
+                            offset: const Offset(0, 0),
+                          )
+                        ],
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            apod.title ?? '',
+                            style: TextStyle(
+                              fontSize: 22,
+                              color: CustomColors.white,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          Text(
+                            apod.explanation ?? '',
+                            style: TextStyle(
+                              color: CustomColors.white,
+                            ),
+                          ),
+                          Text(
+                            apod.copyright ?? 'Nasa',
+                            style: TextStyle(
+                              color: CustomColors.white,
+                            ),
+                          ),
+                          Text(
+                            'date: ${apod.date}',
+                            style: TextStyle(
+                              color: CustomColors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ],
