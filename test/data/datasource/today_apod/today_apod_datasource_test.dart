@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:astronomy_picture/core/error/failure.dart';
 import 'package:astronomy_picture/data/datasources/today_apod/remote/today_apod_datasource_impl.dart';
 import 'package:astronomy_picture/data/datasources/today_apod/today_apod_datasource.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;
-
 import '../../../fixtures/fixtures.dart';
 import '../../../mocks/mocks.mocks.dart';
 import '../../../test_values.dart';

@@ -1,6 +1,5 @@
+import 'package:astronomy_picture/core/error/failure.dart';
 import 'package:dartz/dartz.dart';
-
-import '../../../core/error/failure.dart';
 import '../../entities/apod.dart';
 
 abstract class TodayApodRepository {

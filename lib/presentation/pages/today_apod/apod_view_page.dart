@@ -1,14 +1,28 @@
 import 'package:astronomy_picture/core/constants/custom_colors.dart';
 import 'package:astronomy_picture/domain/entities/apod.dart';
+import 'package:astronomy_picture/presentation/widget/today_apod/apod_video.dart';
 import 'package:astronomy_picture/presentation/widget/today_apod/apod_view_button.dart';
 import 'package:flutter/material.dart';
 
-class ApodViewPage extends StatelessWidget {
+class ApodViewPage extends StatefulWidget {
   final Apod apod;
   const ApodViewPage({
     super.key,
     required this.apod,
   });
+
+  @override
+  State<ApodViewPage> createState() => _ApodViewPageState();
+}
+
+class _ApodViewPageState extends State<ApodViewPage> {
+  bool isImage = true;
+
+  void checkMediaType() {
+    if (widget.apod.mediaType == 'video') {
+      isImage = false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,26 +51,7 @@ class ApodViewPage extends StatelessWidget {
                 alignment: Alignment.topCenter,
                 children: [
                   ClipRRect(
-                    child: Container(
-                      height: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage(
-                            apod.url ?? "",
-                          ),
-                          fit: BoxFit.fitHeight,
-                        ),
-                        borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(30),
-                          bottomRight: Radius.circular(30),
-                        ),
-                        border: Border.all(
-                          color: CustomColors.white.withOpacity(
-                            0.5,
-                          ),
-                        ),
-                      ),
-                    ),
+                    child: buildMediaType(),
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(
@@ -95,27 +90,33 @@ class ApodViewPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            apod.title ?? '',
+                            widget.apod.title ?? '',
                             style: TextStyle(
                               fontSize: 22,
                               color: CustomColors.white,
                               fontWeight: FontWeight.w900,
                             ),
                           ),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           Text(
-                            apod.explanation ?? '',
+                            widget.apod.explanation ?? '',
+                            style: TextStyle(
+                              color: CustomColors.white,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "by ${widget.apod.copyright ?? "Nasa"}",
                             style: TextStyle(
                               color: CustomColors.white,
                             ),
                           ),
                           Text(
-                            apod.copyright ?? 'Nasa',
-                            style: TextStyle(
-                              color: CustomColors.white,
-                            ),
-                          ),
-                          Text(
-                            'date: ${apod.date}',
+                            'Date: ${widget.apod.date}',
                             style: TextStyle(
                               color: CustomColors.white,
                             ),
@@ -156,6 +157,63 @@ class ApodViewPage extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget buildMediaType() {
+    if (isImage) {
+      return GestureDetector(
+        onTap: () {},
+        child: Container(
+          height: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(
+                widget.apod.url ?? "",
+              ),
+              fit: BoxFit.fitHeight,
+            ),
+            borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30),
+            ),
+            border: Border.all(
+              color: CustomColors.white.withOpacity(
+                0.5,
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+    return Container(
+      height: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: NetworkImage(
+            widget.apod.thumbnailUrl ??
+                "https://spaceplace.nasa.gov/gallery-space/en/NGC2336-galaxy.en.jpg",
+          ),
+          fit: BoxFit.fitHeight,
+        ),
+        borderRadius: const BorderRadius.only(
+          bottomLeft: Radius.circular(30),
+          bottomRight: Radius.circular(30),
+        ),
+        border: Border.all(
+          color: CustomColors.white.withOpacity(
+            0.5,
+          ),
+        ),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ApodVideo(
+            urlVideo: widget.apod.url ?? "",
+          ),
+        ],
       ),
     );
   }

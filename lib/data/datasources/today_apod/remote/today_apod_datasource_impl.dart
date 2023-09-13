@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:astronomy_picture/core/constants/env.dart';
 import 'package:astronomy_picture/core/error/failure.dart';
 import 'package:http/http.dart' as http;
